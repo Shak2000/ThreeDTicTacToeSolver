@@ -1,5 +1,5 @@
 import math
-import random
+
 
 class Game:
     """
@@ -72,7 +72,8 @@ class Game:
         """Returns a list of all unoccupied cells as (x, y, z) tuples."""
         if not self.board:
             return []
-        return [(x, y, z) for z in range(self.depth) for y in range(self.height) for x in range(self.width) if self.board[z][y][x] == '.']
+        return [(x, y, z) for z in range(self.depth) for y in range(self.height) for x in range(self.width)
+                if self.board[z][y][x] == '.']
 
     def is_draw(self):
         """Checks if the game is a draw (no more valid moves)."""
@@ -86,15 +87,15 @@ class Game:
         # 13 unique directions to check for a win in 3D space
         directions = [
             (1, 0, 0), (0, 1, 0), (0, 0, 1),  # Axes-aligned
-            (1, 1, 0), (1, -1, 0), (1, 0, 1), (1, 0, -1), (0, 1, 1), (0, 1, -1), # Planar diagonals
-            (1, 1, 1), (1, 1, -1), (1, -1, 1), (-1, 1, 1) # Space diagonals
+            (1, 1, 0), (1, -1, 0), (1, 0, 1), (1, 0, -1), (0, 1, 1), (0, 1, -1),  # Planar diagonals
+            (1, 1, 1), (1, 1, -1), (1, -1, 1), (-1, 1, 1)  # Space diagonals
         ]
         for z in range(self.depth):
             for y in range(self.height):
                 for x in range(self.width):
                     if self.board[z][y][x] != '.':
                         player = self.board[z][y][x]
-                        for dx, dy, dz in directions: # Note: direction maps to x, y, z
+                        for dx, dy, dz in directions:  # Note: direction maps to x, y, z
                             count = 0
                             for i in range(self.win_length):
                                 nx, ny, nz = x + i * dx, y + i * dy, z + i * dz
@@ -195,23 +196,23 @@ class Game:
                 x, y, z = move
                 self.board[z][y][x] = ai_player
                 evaluation = self.minimax(depth - 1, alpha, beta, False, ai_player)
-                self.board[z][y][x] = '.' # Backtrack
+                self.board[z][y][x] = '.'  # Backtrack
                 max_eval = max(max_eval, evaluation)
                 alpha = max(alpha, evaluation)
                 if beta <= alpha:
-                    break # Prune
+                    break  # Prune
             return max_eval
-        else: # Minimizing player
+        else:  # Minimizing player
             min_eval = float('inf')
             for move in valid_moves:
                 x, y, z = move
                 self.board[z][y][x] = opp_player
                 evaluation = self.minimax(depth - 1, alpha, beta, True, ai_player)
-                self.board[z][y][x] = '.' # Backtrack
+                self.board[z][y][x] = '.'  # Backtrack
                 min_eval = min(min_eval, evaluation)
                 beta = min(beta, evaluation)
                 if beta <= alpha:
-                    break # Prune
+                    break  # Prune
             return min_eval
 
     def computer_move(self, search_depth):
@@ -251,15 +252,15 @@ class Game:
         best_value = float('-inf')
         
         if len(valid_moves) == self.depth * self.height * self.width:
-             center_x, center_y, center_z = self.width // 2, self.height // 2, self.depth // 2
-             best_move = (center_x, center_y, center_z)
+            center_x, center_y, center_z = self.width // 2, self.height // 2, self.depth // 2
+            best_move = (center_x, center_y, center_z)
         else:
             print(f"Computer is thinking for player '{ai_player}' with search depth {search_depth}...")
             for move in valid_moves:
                 x, y, z = move
                 self.board[z][y][x] = ai_player
                 move_value = self.minimax(search_depth - 1, float('-inf'), float('inf'), False, ai_player)
-                self.board[z][y][x] = '.' # Backtrack
+                self.board[z][y][x] = '.'  # Backtrack
                 if move_value > best_value:
                     best_value = move_value
                     best_move = move
@@ -271,22 +272,23 @@ class Game:
         else:
             print("Computer could not find a move.")
 
-def get_player_move(game):
-    """Prompts the human player for their move and validates it."""
-    while True:
-        try:
-            coords = input("Enter your move as x,y,z (e.g., 2,1,0): ")
-            x, y, z = map(int, coords.split(','))
-            if game.move(x, y, z):
-                return True
-            else:
-                print("Invalid move. Cell is either taken or out of bounds. Try again.")
-        except ValueError:
-            print("Invalid format. Please use comma-separated integers (x,y,z).")
-        except Exception as e:
-            print(f"An error occurred: {e}")
 
 def main():
+    def get_player_move(curr_game):
+        """Prompts the human player for their move and validates it."""
+        while True:
+            try:
+                coords = input("Enter your move as x,y,z (e.g., 2,1,0): ")
+                x, y, z = map(int, coords.split(','))
+                if curr_game.move(x, y, z):
+                    return True
+                else:
+                    print("Invalid move. Cell is either taken or out of bounds. Try again.")
+            except ValueError:
+                print("Invalid format. Please use comma-separated integers (x,y,z).")
+            except Exception as ee:
+                print(f"An error occurred: {ee}")
+
     """Main game loop and user interface."""
     print("Welcome to 3D Tic-Tac-Toe!")
     game = Game()
@@ -364,6 +366,7 @@ def main():
                 break
             else:
                 print("Invalid choice. Please select a valid option.")
+
 
 if __name__ == "__main__":
     main()
