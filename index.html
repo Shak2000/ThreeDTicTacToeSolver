@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Tic-Tac-Toe Solver</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>3D Tic-Tac-Toe Solver</h1>
+        <div class="controls">
+            <div id="preGameControls">
+                <label>Width: <input type="number" id="width" min="2" max="6" value="3"></label>
+                <label>Height: <input type="number" id="height" min="2" max="6" value="3"></label>
+                <label>Depth: <input type="number" id="depth" min="2" max="6" value="3"></label>
+                <label>Win Length: <input type="number" id="winLength" min="2" max="6" value="3"></label>
+                <button id="startBtn">Start Game</button>
+            </div>
+            <div id="inGameControls" style="display:none;">
+                <button id="restartBtn">Restart</button>
+                <button id="undoBtn">Undo</button>
+                <button id="aiBtn">AI Move</button>
+                <label>AI Depth: <input type="number" id="aiDepth" min="1" max="6" value="2"></label>
+                <button id="quitBtn">Quit Game</button>
+            </div>
+        </div>
+        <div id="status"></div>
+        <div id="boardContainer"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

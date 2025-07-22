@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Query
 from fastapi.responses import FileResponse
 from pydantic import BaseModel
 from main import Game
@@ -23,7 +23,12 @@ async def get_script():
 
 
 @app.post("/start")
-async def start(height=3, width=3, depth=3, win_length=3):
+async def start(
+    height: int = Query(3),
+    width: int = Query(3),
+    depth: int = Query(3),
+    win_length: int = Query(3)
+):
     game.start(height, width, depth, win_length)
 
 
@@ -33,7 +38,11 @@ async def switch_player():
 
 
 @app.post("/move")
-async def move(x, y, z):
+async def move(
+    x: int = Query(...),
+    y: int = Query(...),
+    z: int = Query(...)
+):
     return game.move(x, y, z)
 
 
@@ -68,5 +77,16 @@ async def minimax(depth, alpha, beta, is_maximizing_player, ai_player):
 
 
 @app.post("/search_depth")
-async def computer_move(search_depth):
+async def computer_move(search_depth: int = Query(...)):
     game.computer_move(search_depth)
+
+
+@app.post("/quit")
+async def quit_game():
+    game.board = None
+    return {"message": "Game quit."}
+
+
+@app.get("/get_board")
+async def get_board():
+    return {"board": game.board, "player": game.player}
