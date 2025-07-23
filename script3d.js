@@ -261,7 +261,7 @@ function renderBoard3d() {
     cellMeshes.forEach(mesh => scene.remove(mesh));
     cellMeshes = [];
     const cellSize = Math.min(1.2, 10/Math.max(width3d, height3d, depth3d));
-    const spacing = cellSize; // spacing between centers = diameter
+    const spacing = cellSize * 2; // center-to-center distance is 2 * diameter
     for (let z = 0; z < depth3d; z++) {
         for (let y = 0; y < height3d; y++) {
             for (let x = 0; x < width3d; x++) {
