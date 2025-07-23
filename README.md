@@ -162,7 +162,7 @@ This project demonstrates advanced game AI concepts and 3D web visualization. Po
 
 ## License
 
-Open source project - feel free to modify and distribute.
+This project is open source and available under the MIT License.
 
 ---
 
