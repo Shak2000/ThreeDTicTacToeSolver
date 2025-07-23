@@ -77,6 +77,13 @@ async function undoMove3d() {
 
 async function aiMove3d() {
     getSettings3d();
+    // Prevent AI move if there is a winner
+    const winnerRes = await fetch('/check_winner');
+    const winner = await winnerRes.json();
+    if (winner) {
+        status3dDiv.textContent = `Player ${winner} has already won!`;
+        return;
+    }
     setAIThinking3d(true);
     await fetch(`/search_depth?search_depth=${aiDepth3d}`, { method: 'POST' });
     await updateBoardState3d();
@@ -98,6 +105,13 @@ async function quitGame3d() {
 
 async function makeMove3d(x, y, z) {
     if (aiThinking3d) return;
+    // Prevent moves if there is a winner
+    const winnerRes = await fetch('/check_winner');
+    const winner = await winnerRes.json();
+    if (winner) {
+        status3dDiv.textContent = `Player ${winner} has already won!`;
+        return;
+    }
     const res = await fetch(`/move?x=${x}&y=${y}&z=${z}`, { method: 'POST' });
     const valid = await res.json();
     if (!valid) {

@@ -57,6 +57,13 @@ function setAIThinking(thinking) {
 
 async function aiMove() {
     getSettings();
+    // Prevent AI move if there is a winner
+    const winnerRes = await fetch('/check_winner');
+    const winner = await winnerRes.json();
+    if (winner) {
+        statusDiv.textContent = `Player ${winner} has already won!`;
+        return;
+    }
     setAIThinking(true);
     await fetch(`/search_depth?search_depth=${aiDepth}`, { method: 'POST' });
     await renderBoard();
@@ -74,6 +81,13 @@ async function quitGame() {
 
 async function makeMove(x, y, z) {
     if (aiThinking) return;
+    // Prevent moves if there is a winner
+    const winnerRes = await fetch('/check_winner');
+    const winner = await winnerRes.json();
+    if (winner) {
+        statusDiv.textContent = `Player ${winner} has already won!`;
+        return;
+    }
     const res = await fetch(`/move?x=${x}&y=${y}&z=${z}`, { method: 'POST' });
     const valid = await res.json();
     if (!valid) {
