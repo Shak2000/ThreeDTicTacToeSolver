@@ -39,6 +39,17 @@ button {
 button:hover {
     background: #1565c0;
 }
+button:disabled, input:disabled {
+    background: #bdbdbd !important;
+    color: #e0e0e0 !important;
+    border: 1px solid #bdbdbd !important;
+    cursor: not-allowed !important;
+    opacity: 1 !important;
+    box-shadow: none !important;
+}
+button:disabled:hover, input:disabled:hover {
+    background: #bdbdbd !important;
+}
 #status {
     text-align: center;
     font-size: 1.2rem;
