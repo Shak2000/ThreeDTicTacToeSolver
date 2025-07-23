@@ -1,39 +1,56 @@
 # 3D Tic-Tac-Toe Solver
 
-A web-based and command-line 3D Tic-Tac-Toe game with AI opponent using minimax algorithm with alpha-beta pruning.
+A fully-featured 3D Tic-Tac-Toe game with AI solver, offering both traditional 2D layered view and immersive 3D visualization using Three.js.
 
 ## Features
 
-- **Customizable Board Dimensions**: Configure width, height, depth (2-6 for each dimension)
-- **Variable Win Conditions**: Set custom win length requirements
-- **AI Opponent**: Computer player with adjustable difficulty (search depth 1-6)
-- **Smart AI Strategy**: Prioritizes winning moves and blocks opponent wins
-- **Interactive Web Interface**: Clean, responsive UI for easy gameplay
-- **Command-Line Interface**: Terminal-based gameplay option
+- **Customizable Board Dimensions**: Play on boards from 2×2×2 to 6×6×6
+- **Variable Win Conditions**: Set win length from 2 to 6 pieces in a row
+- **Dual Interface Options**:
+  - Traditional 2D layered view for easy gameplay
+  - Interactive 3D visualization with rotation and hover effects
+- **AI Opponent**: Minimax algorithm with alpha-beta pruning
 - **Game Management**: Undo moves, restart games, and quit functionality
-- **Real-time Status Updates**: Track current player, game state, and winner
+- **Multiple Play Modes**: Command-line interface and web-based GUI
 
-## Quick Start
+## Screenshots
 
-### Web Interface
+The game offers both 2D layered visualization and 3D perspective views:
+- **2D View**: Multiple layers displayed side-by-side for clear game state visualization
+- **3D View**: Fully rotatable 3D board with interactive pieces and hover effects
 
-1. Install dependencies:
+## Installation
+
+### Prerequisites
+
+- Python 3.7 or higher
+- FastAPI
+- Uvicorn (for web server)
+
+### Setup
+
+1. Clone or download the project files
+2. Install dependencies:
    ```bash
    pip install fastapi uvicorn
    ```
 
-2. Start the web server:
+## Usage
+
+### Web Interface (Recommended)
+
+1. Start the web server:
    ```bash
    uvicorn app:app --reload
    ```
 
-3. Open your browser to `http://localhost:8000`
-
-4. Configure game settings and click "Start Game"
+2. Open your browser and navigate to:
+   - **2D Interface**: `http://localhost:8000/`
+   - **3D Interface**: `http://localhost:8000/index3d.html`
 
 ### Command Line Interface
 
-Run the game directly in your terminal:
+Run the standalone game:
 ```bash
 python main.py
 ```
@@ -41,154 +58,112 @@ python main.py
 ## Game Rules
 
 ### Objective
-Be the first player to align your pieces (X or O) in a straight line of the specified win length.
+Be the first player to get the specified number of pieces (default: 3) in a row in any direction.
 
-### Winning Conditions
-A winning line can be formed in any of these 13 directions within the 3D space:
+### Winning Directions
+In 3D space, you can win by aligning pieces in any of these 13 directions:
 - **Axis-aligned**: Along X, Y, or Z axes
 - **Planar diagonals**: Diagonal lines within XY, XZ, or YZ planes
 - **Space diagonals**: True 3D diagonal lines through the cube
 
-### Coordinates
-- **X-axis**: Left to right (width)
-- **Y-axis**: Top to bottom (height) 
-- **Z-axis**: Front layer to back layer (depth)
-
-## Web Interface Controls
-
-### Pre-Game Settings
-- **Width/Height/Depth**: Board dimensions (2-6 each)
-- **Win Length**: Number of pieces needed in a line to win
-- **Start Game**: Begin a new game with current settings
-
-### In-Game Controls
-- **Click any empty cell** to make your move
-- **AI Move**: Let the computer make a move for current player
-- **AI Depth**: Adjust computer difficulty (higher = smarter but slower)
-- **Undo**: Reverse the last move
-- **Restart**: Start over with same settings
-- **Quit Game**: Return to setup screen
+### Game Flow
+1. Configure board dimensions (width, height, depth) and win length
+2. Players alternate turns (X goes first)
+3. Click on empty cells to place your piece
+4. Use AI assistance or play against the computer
+5. First to achieve the win condition wins!
 
 ## AI Algorithm
 
-The computer opponent uses the **minimax algorithm with alpha-beta pruning**:
+The game uses a **Minimax algorithm with alpha-beta pruning** for AI moves:
 
-### Strategy Priority
-1. **Winning Move**: Takes any immediately winning move
-2. **Blocking Move**: Blocks opponent's immediate win
-3. **Minimax Evaluation**: Uses heuristic scoring for optimal play
+- **Evaluation Function**: Considers piece positioning, line potential, and center control
+- **Search Depth**: Configurable from 1-6 levels (higher = stronger but slower)
+- **Optimization**: Alpha-beta pruning significantly reduces search space
+- **Strategy**: Prioritizes winning moves, blocking opponent wins, then optimal positioning
 
-### Heuristic Evaluation
-- **Line Control**: Scores based on piece alignment potential
-- **Center Preference**: Favors central positions for strategic advantage
-- **Win Detection**: Assigns infinite value to winning/losing positions
+## Web Interface Features
 
-### Difficulty Levels
-- **Depth 1-2**: Beginner (fast, basic strategy)
-- **Depth 3-4**: Intermediate (balanced speed/intelligence)
-- **Depth 5-6**: Advanced (slower but very challenging)
+### 2D Interface (`index.html`)
+- Layer-by-layer board visualization
+- Clear cell highlighting and player indicators
+- Responsive design with intuitive controls
+
+### 3D Interface (`index3d.html`)
+- **Interactive 3D Board**: Full rotation with mouse/touch controls
+- **Visual Feedback**: Hover effects and smooth animations
+- **Rotation Icon**: Dedicated control for board rotation
+- **Dynamic Lighting**: Professional 3D rendering with shadows
+- **Responsive Design**: Adapts to different screen sizes
+
+### Controls
+- **Start Game**: Initialize new game with custom settings
+- **Restart**: Reset current game with same settings
+- **Undo**: Revert last move
+- **AI Move**: Let computer make optimal move
+- **AI Depth**: Adjust computer difficulty (1-6)
+- **Quit Game**: End current game
 
 ## File Structure
 
 ```
-├── main.py          # Core game logic and CLI interface
-├── app.py           # FastAPI web server
-├── index.html       # Web interface HTML
-├── styles.css       # Web interface styling
-├── script.js        # Web interface JavaScript
-└── README.md        # This documentation
+3d-tictactoe-solver/
+├── main.py           # Core game logic and CLI interface
+├── app.py            # FastAPI web server
+├── index.html        # 2D web interface
+├── index3d.html      # 3D web interface
+├── script.js         # 2D interface JavaScript
+├── script3d.js       # 3D interface JavaScript (Three.js)
+├── styles.css        # Shared styling
+└── README.md         # This file
 ```
 
-## API Endpoints
+## Technical Details
 
-The web interface communicates with these FastAPI endpoints:
+### Backend (Python)
+- **Game Class**: Manages board state, moves, and game logic
+- **AI Implementation**: Minimax with alpha-beta pruning
+- **FastAPI Server**: RESTful API for web interface communication
 
-### Game Management
-- `POST /start` - Initialize new game with dimensions
-- `POST /quit` - End current game
-- `GET /get_board` - Retrieve board state and current player
+### Frontend (JavaScript)
+- **2D Rendering**: DOM manipulation for layered board display
+- **3D Rendering**: Three.js for WebGL-based 3D visualization
+- **Interactive Controls**: Mouse/touch support for moves and rotation
+- **Responsive Design**: Adapts to various screen sizes
 
-### Gameplay
-- `POST /move` - Make a move at specified coordinates
-- `POST /switch_player` - Switch to next player
+### API Endpoints
+- `POST /start` - Initialize new game
+- `POST /move` - Make a move
+- `POST /search_depth` - AI move with specified depth
+- `GET /get_board` - Retrieve current board state
+- `GET /check_winner` - Check for game winner
 - `POST /undo` - Undo last move
-- `POST /search_depth` - Execute AI move with specified depth
+- And more...
 
-### Game State
-- `GET /get_valid_moves` - List available moves
-- `GET /check_winner` - Check for winning player
-- `GET /is_draw` - Check for draw condition
+## Performance Considerations
 
-## Command Line Interface
+- **Board Size**: Larger boards (5×5×5+) may experience slower AI response
+- **AI Depth**: Higher depths provide better play but increase computation time
+- **3D Rendering**: Modern browsers with WebGL support recommended for 3D interface
 
-### Starting a Game
-```
-Enter dimensions (width,height,depth) [default 3,3,3]: 4,4,3
-Enter win length [default 3]: 3
-```
+## Browser Compatibility
 
-### Making Moves
-```
-Enter your move as x,y,z (e.g., 2,1,0): 1,1,1
-```
-
-### Menu Options
-1. Make a move (Human)
-2. Let computer make a move (AI)
-3. Undo last move
-4. Restart game
-5. Quit game
-
-## Example Gameplay
-
-### Standard 3×3×3 Game
-```
---- Layer 0 ---
-. . .
-. X .
-. . .
---- Layer 1 ---
-. . .
-. O .
-. . .
---- Layer 2 ---
-. . .
-. . .
-. . .
-```
-
-### Custom 4×4×2 Game
-Create larger boards for longer, more strategic games with different win conditions.
-
-## Tips for Players
-
-### Strategy Tips
-- **Control the center**: Central positions offer more winning opportunities
-- **Think in 3D**: Consider all 13 possible line directions
-- **Block early**: Don't let opponent build long sequences
-- **Plan layers**: Use multiple layers to create complex threats
-
-### AI Tips
-- **Start with depth 2**: Good balance of speed and challenge
-- **Increase gradually**: Higher depths for tougher opponents
-- **Watch for patterns**: AI learns to recognize winning/blocking moves
-
-## Requirements
-
-- **Python 3.7+**
-- **FastAPI** (for web interface)
-- **Uvicorn** (ASGI server)
-- **Modern web browser** (for web interface)
-
-## License
-
-This project is open source and available under the MIT License.
+- **2D Interface**: Works in all modern browsers
+- **3D Interface**: Requires WebGL support (Chrome, Firefox, Safari, Edge)
 
 ## Contributing
 
-Contributions welcome! Areas for improvement:
-- Enhanced AI evaluation functions
-- Additional game modes or variants
-- Performance optimizations
-- UI/UX enhancements
-- Mobile responsiveness improvements
+This project demonstrates advanced game AI concepts and 3D web visualization. Potential improvements:
+- Multiplayer network support
+- Additional AI difficulty levels
+- Tournament mode
+- Save/load game functionality
+- Mobile app version
+
+## License
+
+Open source project - feel free to modify and distribute.
+
+---
+
+**Enjoy playing 3D Tic-Tac-Toe!** 🎮
