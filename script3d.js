@@ -261,7 +261,8 @@ function renderBoard3d() {
     cellMeshes.forEach(mesh => scene.remove(mesh));
     cellMeshes = [];
     const cellSize = Math.min(1.2, 10/Math.max(width3d, height3d, depth3d));
-    const spacing = cellSize * 2; // center-to-center distance is 2 * diameter
+    const spacing = cellSize * 2;
+    const yOffset = cellSize * 1.2; // upward offset
     for (let z = 0; z < depth3d; z++) {
         for (let y = 0; y < height3d; y++) {
             for (let x = 0; x < width3d; x++) {
@@ -292,9 +293,9 @@ function renderBoard3d() {
                     );
                     mesh.userData.isEmpty = true;
                 }
-                // Center the board
+                // Center the board and move up
                 const xPos = (x - (width3d-1)/2) * spacing;
-                const yPos = ((height3d-1)/2 - y) * spacing;
+                const yPos = ((height3d-1)/2 - y) * spacing + yOffset;
                 const zPos = (z - (depth3d-1)/2) * spacing;
                 mesh.position.set(xPos, yPos, zPos);
                 mesh.userData = {...mesh.userData, x, y, z, value};
