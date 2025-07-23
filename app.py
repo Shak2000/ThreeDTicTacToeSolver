@@ -22,6 +22,16 @@ async def get_script():
     return FileResponse("script.js")
 
 
+@app.get("/index3d.html")
+async def get_ui_3d():
+    return FileResponse("index3d.html")
+
+
+@app.get("/script3d.js")
+async def get_script_3d():
+    return FileResponse("script3d.js")
+
+
 @app.post("/start")
 async def start(
     height: int = Query(3),

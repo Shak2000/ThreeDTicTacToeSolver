@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Tic-Tac-Toe Solver (3D UI)</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- three.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.153.0/build/three.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>3D Tic-Tac-Toe Solver <span style="font-size:1rem; font-weight:normal;">(3D UI)</span></h1>
+        <div class="controls">
+            <div id="preGameControls3d">
+                <label>Width: <input type="number" id="width3d" min="2" max="6" value="3"></label>
+                <label>Height: <input type="number" id="height3d" min="2" max="6" value="3"></label>
+                <label>Depth: <input type="number" id="depth3d" min="2" max="6" value="3"></label>
+                <label>Win Length: <input type="number" id="winLength3d" min="2" max="6" value="3"></label>
+                <button id="startBtn3d">Start Game</button>
+            </div>
+            <div id="inGameControls3d" style="display:none;">
+                <button id="restartBtn3d">Restart</button>
+                <button id="undoBtn3d">Undo</button>
+                <button id="aiBtn3d">AI Move</button>
+                <label>AI Depth: <input type="number" id="aiDepth3d" min="1" max="6" value="2"></label>
+                <button id="quitBtn3d">Quit Game</button>
+            </div>
+        </div>
+        <div id="status3d"></div>
+        <div id="board3dContainer" class="board3d-container" style="width: 600px; height: 500px;"></div>
+    </div>
+    <script src="script3d.js"></script>
+</body>
+</html>
