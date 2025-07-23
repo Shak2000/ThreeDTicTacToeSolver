@@ -5,12 +5,19 @@ body {
     padding: 0;
 }
 .container {
-    max-width: 900px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-width: 1000px;
+    min-height: 80vh;
+    width: 95vw;
+    max-width: 120vw;
     margin: 40px auto;
     background: #fff;
-    border-radius: 10px;
+    border-radius: 16px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    padding: 30px 40px 40px 40px;
+    padding: 30px 0 40px 0;
 }
 h1 {
     text-align: center;
@@ -166,8 +173,15 @@ button:disabled:hover, input:disabled:hover {
 /* three.js 3D UI styles */
 #board3dContainer {
     position: relative;
-    width: 600px;
-    height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90vw;
+    height: 70vh;
+    min-width: 600px;
+    min-height: 500px;
+    max-width: 98vw;
+    max-height: 80vh;
     margin: 0 auto;
     background: #f4f4f4;
     border-radius: 10px;
@@ -181,4 +195,36 @@ button:disabled:hover, input:disabled:hover {
     outline: none;
     background: #e0e0e0;
     border-radius: 10px;
+}
+
+.rotation-icon {
+    position: absolute;
+    right: 32px;
+    top: 32px;
+    width: 64px;
+    height: 64px;
+    z-index: 10;
+    pointer-events: auto;
+    cursor: grab;
+    background: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.rotation-icon canvas {
+    width: 100% !important;
+    height: 100% !important;
+    display: block;
+}
+
+.status3d-centered {
+    text-align: center;
+    font-size: 1.3rem;
+    font-weight: 500;
+    margin: 24px 0 12px 0;
+    width: 100%;
+}
+
+.cube-cell-hovered {
+    filter: brightness(0.7);
 }
