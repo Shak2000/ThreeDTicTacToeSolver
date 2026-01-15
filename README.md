@@ -26,13 +26,15 @@ The game offers both 2D layered visualization and 3D perspective views:
 - Python 3.7 or higher
 - FastAPI
 - Uvicorn (for web server)
+- Docker (optional, for containerized deployment)
+- Google Cloud CLI (optional, for Cloud Run deployment)
 
 ### Setup
 
 1. Clone or download the project files
 2. Install dependencies:
    ```bash
-   pip install fastapi uvicorn
+   pip install -r requirements.txt
    ```
 
 ## Usage
@@ -47,6 +49,35 @@ The game offers both 2D layered visualization and 3D perspective views:
 2. Open your browser and navigate to:
    - **2D Interface**: `http://localhost:8000/`
    - **3D Interface**: `http://localhost:8000/index3d.html`
+
+### Docker
+
+Run the app in a Docker container:
+
+```bash
+# Build the image
+docker build -t tictactoe-3d .
+
+# Run locally
+docker run -p 8080:8080 tictactoe-3d
+```
+
+Then open http://localhost:8080/
+
+### Deploy to Google Cloud Run
+
+Deploy to Cloud Run using the included script:
+
+```bash
+./deploy.sh
+```
+
+This script:
+- Builds the Docker image for AMD64 architecture
+- Pushes to Google Container Registry
+- Deploys to Cloud Run in us-west1
+
+Prerequisites: `gcloud` CLI installed and configured with a GCP project.
 
 ### Command Line Interface
 
@@ -115,6 +146,9 @@ The game uses a **Minimax algorithm with alpha-beta pruning** for AI moves:
 ├── script.js         # 2D interface JavaScript
 ├── script3d.js       # 3D interface JavaScript (Three.js)
 ├── styles.css        # Shared styling
+├── Dockerfile        # Docker container configuration
+├── requirements.txt  # Python dependencies
+├── deploy.sh         # Cloud Run deployment script
 └── README.md         # This file
 ```
 

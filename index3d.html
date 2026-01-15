@@ -29,6 +29,19 @@
             </div>
         </div>
         <div id="board3dContainer" class="board3d-container" style="width: 90vw; height: 70vh;"></div>
+        <div class="instructions">
+            <h2>How to Play</h2>
+            <p><strong>Objective:</strong> Get the specified number of pieces in a row (default: 3) in any direction to win.</p>
+            <ul>
+                <li><strong>Start:</strong> Set board dimensions and win length, then click "Start Game"</li>
+                <li><strong>Make a Move:</strong> Click on any empty cell to place your piece (X or O)</li>
+                <li><strong>Rotate Board:</strong> Click and drag the polyhedron near the top-right corner to rotate the 3D view</li>
+                <li><strong>AI Move:</strong> Click "AI Move" to let the computer play for the current player</li>
+                <li><strong>AI Depth:</strong> Higher values (1-6) make the AI stronger but slower</li>
+                <li><strong>Undo:</strong> Take back the last move</li>
+            </ul>
+            <p><strong>Win Directions:</strong> You can win along any axis (X, Y, Z), any planar diagonal, or any 3D space diagonal.</p>
+        </div>
     </div>
     <script src="script3d.js"></script>
 </body>

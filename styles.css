@@ -228,3 +228,30 @@ button:disabled:hover, input:disabled:hover {
 .cube-cell-hovered {
     filter: brightness(0.7);
 }
+
+/* Instructions section */
+.instructions {
+    margin-top: 30px;
+    padding: 20px 40px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    max-width: 700px;
+    text-align: left;
+}
+.instructions h2 {
+    margin-top: 0;
+    font-size: 1.3rem;
+    color: #333;
+}
+.instructions ul {
+    padding-left: 20px;
+    margin: 12px 0;
+}
+.instructions li {
+    margin: 8px 0;
+    line-height: 1.5;
+}
+.instructions p {
+    margin: 10px 0;
+    line-height: 1.5;
+}
